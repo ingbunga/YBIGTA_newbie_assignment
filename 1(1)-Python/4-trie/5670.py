@@ -27,7 +27,7 @@ def count(trie: Trie, query_seq: str) -> int:
 
         new_index = trie.find_element_idx(trie[pointer].children, element) # 구현하세요!
 
-        pointer = new_index
+        pointer = new_index or 0
 
     return cnt + int(len(trie[0].children) == 1)
 

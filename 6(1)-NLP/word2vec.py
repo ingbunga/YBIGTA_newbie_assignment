@@ -53,6 +53,8 @@ class Word2Vec(nn.Module):
 
                 contexts, targets = generate_contexts_and_targets(input_ids, self.window_size)
                 
+                if contexts.size(0) == 0 or targets.size(0) == 0:
+                    continue
                 if self.method == "cbow":
                     self._train_cbow(contexts, targets, criterion, optimizer)
                 elif self.method == "skipgram":
@@ -89,17 +91,17 @@ class Word2Vec(nn.Module):
         # 구현하세요!
         targets_emb = self.embeddings(targets)
         logits = self.weight(targets_emb)
-        total_loss = torch.tensor(0, dtype=torch.float32, requires_grad=True)
-        num_contexts = contexts.size(0)
 
-        for i in range(num_contexts):
+        total_loss = torch.tensor(0, dtype=torch.float32, requires_grad=True)
+        context_length = contexts.size(1)
+
+        for i in range(context_length):
             context = contexts[:, i]
             loss = criterion(logits, context)
             total_loss.data += loss
 
-        total_loss.data /= num_contexts  # 평균 손실 계산
-
-        total_loss.backward()
+        avg_loss = total_loss / context_length
+        avg_loss.backward()
         optimizer.step()
         optimizer.zero_grad()
 

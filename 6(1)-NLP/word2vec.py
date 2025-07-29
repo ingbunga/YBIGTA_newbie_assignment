@@ -48,7 +48,7 @@ class Word2Vec(nn.Module):
         # 구현하세요!
         for epoch in range(num_epochs):
             for sentence in corpus:
-                tokens = tokenizer(sentence, return_tensors="pt", truncation=True, padding=True)
+                tokens = tokenizer(sentence, return_tensors="pt", truncation=True, padding=False)
                 input_ids = tokens["input_ids"].squeeze(0)  # type:ignore
 
                 contexts, targets = generate_contexts_and_targets(input_ids, self.window_size)
@@ -92,13 +92,13 @@ class Word2Vec(nn.Module):
         targets_emb = self.embeddings(targets)
         logits = self.weight(targets_emb)
 
-        total_loss = torch.tensor(0, dtype=torch.float32, requires_grad=True)
+        total_loss = 0.0
         context_length = contexts.size(1)
 
         for i in range(context_length):
             context = contexts[:, i]
             loss = criterion(logits, context)
-            total_loss.data += loss
+            total_loss += loss
 
         avg_loss = total_loss / context_length
         avg_loss.backward()

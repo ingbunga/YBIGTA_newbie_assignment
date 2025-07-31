@@ -50,6 +50,8 @@ DUP-s 결과:
 ![CoT prompt accuracy](docs/My_accuracy.png)
 각각 0.8, 0.84, 0.82
 
+또한 3개가 아닌 11개의 답안을 투표해 얻은 3-shot 50개 결과도 0.84가 나왔다. (돈 없어서 zero-shot이랑 5-shot은 못함)
+
 <!-- 
 
 100개로 돌렸을때 0.81, 0.86, 0.84... 

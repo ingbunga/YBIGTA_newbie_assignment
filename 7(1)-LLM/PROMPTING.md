@@ -2,6 +2,13 @@
 강성우
 
 ## 1. Direct Prompting, CoT Prompting, My Prompting을 0 shot, 3 shot, 5 shot 정답률을 표로 보여주세요!
+
+|                |0 shot|3 shot|5 shot|
+|----------------|------|------|------|
+|Direct Prompting|0.18  |0.16  |0.18  |
+|CoT Prompting   |0.7   |0.78  |0.76  |
+|My Prompting    |0.8   |0.84  |0.82  |
+
 Direct Prompting:
 ![Direct prompt accuracy](docs/Direct_accuracy.png)
 CoT Prompting:

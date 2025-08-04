@@ -59,6 +59,26 @@ DUP-s 결과:
 
 또한 3개가 아닌 11개의 답안을 투표해 얻은 3-shot 50개 결과도 0.84가 나왔다. (돈 없어서 zero-shot이랑 5-shot은 못함)
 
+## Appendix: 실패한 시도들
+
+### MCTSr
+[Accessing GPT-4 level Mathematical Olympiad Solutions via Monte Carlo Tree Self-refine with LLaMa-3 8B: A Technical Report](https://arxiv.org/pdf/2406.07394v2)
+논문을 참고했는데, 
+
+논문에 나온 벤치마크는 정말 Accessing에 성공했을때 Success처리 한 것 같습니다. 즉, 트리에서 나온 많은 답변중 하나라도 정답이 있으면 Accessing에 성공했다고 판단한 것 같습니다. 
+```python
+# https://github.com/trotsky1997/MathBlackBox/blob/main/anal.py
+def checklist(gt,anss):
+    for ans in anss:
+        if check(gt,ans):
+            return True
+    return False
+```
+
+### PoT
+계산 실수로 많은 문제를 틀리는것을 보고 시도를 해보았지만 프로그램에서 정의한적 없는 변수를 사용하는등의 문제가 가끔 발생했습니다. 또한 자연어를 통한 자유로운 추론을 가능하도록 주석으로 사고 과정을 추론하게 해보았지만, CoT보다 성능이 좋지 못했습니다.
+
+
 <!-- 
 
 100개로 돌렸을때 0.81, 0.86, 0.84... 
